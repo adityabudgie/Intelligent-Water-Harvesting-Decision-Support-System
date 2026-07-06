@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sustainable Water Management — Group 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #0d1f22;
+    --teal: #1a4a52;
+    --gold: #c9a84c;
+    --cream: #f5f0e8;
+    --light: #ede8dc;
+    --text: #2a2a2a;
+    --muted: #7a7a6a;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(13, 31, 34, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--dark);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 55vw; height: 85vh;
+    background: linear-gradient(135deg, var(--teal) 0%, #0d2d33 60%, transparent 100%);
+    clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 80%);
+    opacity: 0.6;
+  }
+  .hero-dot-grid {
+    position: absolute; top: 8%; right: 5%;
+    width: 280px; height: 250px;
+    background-image: radial-gradient(circle, rgba(201,168,76,0.3) 1.5px, transparent 1.5px);
+    background-size: 20px 20px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem 5rem;
+    position: relative; z-index: 2;
+  }
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-tag::before {
+    content: ''; display: block;
+    width: 2rem; height: 1px;
+    background: var(--gold);
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--white);
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-desc {
+    margin-top: 2rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.55);
+    max-width: 400px;
+  }
+  .hero-cta {
+    margin-top: 3rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    padding: 0.9rem 2rem;
+    background: var(--gold);
+    color: var(--dark);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  .hero-cta:hover { background: #e6bf5a; transform: translateX(4px); }
+  .hero-cta svg { transition: transform 0.3s; }
+  .hero-cta:hover svg { transform: translateX(4px); }
+
+  .hero-right {
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 4rem 4rem 5rem 2rem;
+    position: relative; z-index: 2;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    border-top: 1px solid rgba(201,168,76,0.25);
+    padding-top: 2rem;
+    margin-top: auto;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--gold);
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.4;
+    margin-top: 0.3rem;
+  }
+  .team-list {
+    position: absolute; right: 4rem; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .team-list p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+  }
+  .team-list .team-header {
+    color: var(--gold);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── SCROLL INDICATOR ── */
+  .scroll-indicator {
+    position: absolute; bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    z-index: 2;
+  }
+  .scroll-indicator span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(201,168,76,0.6), transparent);
+    animation: scrollPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.7); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 0; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+
+  .section-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .section-tag::before {
+    content: ''; display: block;
+    width: 1.5rem; height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    color: var(--dark);
+  }
+
+  /* ── ABSTRACT ── */
+  #abstract { background: var(--cream); }
+  .abstract-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .abstract-text {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #444;
+  }
+  .abstract-text p + p { margin-top: 1.2rem; }
+  .key-finding {
+    background: var(--dark);
+    color: var(--white);
+    padding: 2rem;
+    border-left: 4px solid var(--gold);
+    margin-top: 2rem;
+  }
+  .key-finding p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .key-finding small {
+    display: block;
+    margin-top: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .stat-cards {
+    display: flex; flex-direction: column; gap: 1.2rem;
+  }
+  .stat-card {
+    background: var(--dark);
+    padding: 1.5rem 2rem;
+    display: flex; flex-direction: column;
+    border-bottom: 3px solid var(--gold);
+  }
+  .stat-card .big-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-card .stat-desc {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.55);
+    margin-top: 0.4rem;
+  }
+
+  /* ── PROBLEM ── */
+  #problem { background: var(--light); }
+  .problem-cols {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; margin-top: 3rem;
+  }
+  .problem-block h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+  }
+  .problem-block p, .problem-block li {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: #4a4a4a;
+  }
+  .problem-block ul { padding-left: 1.2rem; }
+  .problem-block li { margin-bottom: 0.5rem; }
+
+  /* ── SURVEY ── */
+  #survey { background: var(--dark); color: var(--white); }
+  #survey .section-title { color: var(--white); }
+  .survey-intro {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.65);
+    max-width: 680px;
+    margin-bottom: 3rem;
+  }
+  .survey-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .survey-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 2rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .survey-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+  .survey-card:hover::before { transform: scaleX(1); }
+  .survey-card:hover { background: rgba(255,255,255,0.08); }
+  .survey-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    color: var(--gold);
+  }
+  .survey-card p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ── TECH ── */
+  #technology { background: var(--cream); }
+  .tech-intro {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #555;
+    max-width: 680px;
+    margin-bottom: 3rem;
+  }
+  .tech-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  .tech-card {
+    background: var(--white);
+    padding: 2rem;
+    border-left: 4px solid transparent;
+    transition: all 0.3s;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+  }
+  .tech-card:hover {
+    border-left-color: var(--gold);
+    transform: translateX(6px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  }
+  .tech-card-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.8rem;
+  }
+  .tech-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+    color: var(--dark);
+  }
+  .tech-card p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: #666;
+  }
+
+  /* ── SENSORS ── */
+  #sensors { background: var(--light); }
+  .sensors-intro {
+    font-size: 1rem; line-height: 1.75; color: #555; max-width: 680px; margin-bottom: 3rem;
+  }
+  .sensors-wrap {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+  }
+  .sensor-pill {
+    background: var(--dark);
+    padding: 1.2rem 1rem;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: default;
+  }
+  .sensor-pill:hover {
+    background: var(--teal);
+    transform: translateY(-4px);
+  }
+  .sensor-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .sensor-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .sensor-desc {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.4;
+  }
+
+  /* ── GOALS ── */
+  #goals { background: var(--dark); }
+  #goals .section-title { color: var(--white); }
+  .goals-list {
+    display: flex; flex-direction: column; gap: 0;
+    margin-top: 3rem;
+    border: 1px solid rgba(201,168,76,0.2);
+  }
+  .goal-item {
+    display: grid; grid-template-columns: 80px 1fr;
+    align-items: center;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    padding: 1.5rem 2rem;
+    transition: background 0.3s;
+    gap: 1.5rem;
+  }
+  .goal-item:last-child { border-bottom: none; }
+  .goal-item:hover { background: rgba(255,255,255,0.04); }
+  .goal-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: rgba(201,168,76,0.25);
+    line-height: 1;
+  }
+  .goal-text h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+  .goal-text p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+  }
+
+  /* ── CONSTRAINTS ── */
+  #constraints { background: var(--cream); }
+  .constraints-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 2rem; margin-top: 3rem;
+  }
+  .constraint-card {
+    padding: 2rem;
+    background: var(--white);
+    border-top: 4px solid var(--gold);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+    transition: box-shadow 0.3s;
+  }
+  .constraint-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+  .constraint-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--dark);
+    margin-bottom: 0.8rem;
+  }
+  .constraint-card p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: #666;
+  }
+
+  /* ── TEAM ── */
+  #team { background: var(--light); }
+  .team-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 1.2rem; margin-top: 3rem;
+  }
+  .team-card {
+    background: var(--white);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: all 0.3s;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    border-bottom: 3px solid transparent;
+  }
+  .team-card:hover {
+    border-bottom-color: var(--gold);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+  }
+  .team-avatar {
+    width: 52px; height: 52px;
+    background: var(--dark);
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .team-card h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 0.3rem;
+  }
+  .team-card .roll {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+  .team-card .contribution {
+    font-size: 0.75rem;
+    color: #777;
+    line-height: 1.4;
+  }
+
+  /* ── CONCLUSION ── */
+  #conclusion {
+    background: var(--dark);
+    text-align: center;
+    padding: 7rem 3rem;
+  }
+  #conclusion .section-tag { justify-content: center; }
+  #conclusion .section-tag::before { display: none; }
+  #conclusion .section-title { color: var(--white); max-width: 700px; margin: 0 auto 2rem; }
+  #conclusion p {
+    max-width: 600px; margin: 0 auto;
+    font-size: 1rem; line-height: 1.75;
+    color: rgba(255,255,255,0.55);
+  }
+  .conclusion-line {
+    width: 60px; height: 2px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+  }
+  .course-badge {
+    display: inline-block;
+    margin-top: 3rem;
+    padding: 0.6rem 1.5rem;
+    border: 1px solid rgba(201,168,76,0.35);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080f10;
+    padding: 2rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  footer p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .team-list { display: none; }
+    .abstract-grid { grid-template-columns: 1fr; }
+    .problem-cols { grid-template-columns: 1fr; }
+    .survey-grid { grid-template-columns: 1fr; }
+    .tech-grid { grid-template-columns: 1fr; }
+    .sensors-wrap { grid-template-columns: repeat(2, 1fr); }
+    .constraints-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    .hero-left { padding: 7rem 2rem 4rem; }
+    .container { padding: 0 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">HS-202 · Group 2</div>
+  <div class="nav-links">
+    <a href="#abstract">Abstract</a>
+    <a href="#problem">Problem</a>
+    <a href="#technology">Technology</a>
+    <a href="#goals">Goals</a>
+    <a href="#team">Team</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-dot-grid"></div>
+
+  <div class="hero-left">
+    <div class="hero-tag">HS-202 Human Geography & Social Needs</div>
+    <h1>Sustainable<br><span>Water</span><br>Management</h1>
+    <p class="hero-desc">
+      An AI-driven, region-specific approach to addressing water scarcity through fog harvesting, IoT sensors, and intelligent decision systems.
+    </p>
+    <a href="#abstract" class="hero-cta">
+      Explore Report
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="hero-right">
+    <div class="team-list">
+      <p class="team-header">Submitted By — Group 2</p>
+      <p>Akshit Kumar · 2024EEB1178</p>
+      <p>Gaurish Juneja · 2024EEB1200</p>
+      <p>Rithwik Chander · 2024EEB1076</p>
+      <p>Ritesh Pahari · 2024EEB1045</p>
+      <p>Vanya Mangla · 2024EEB1054</p>
+      <p>Ishwinder Singh · 2024EEB1208</p>
+      <p>Aditya Mathur · 2024EEB1024</p>
+      <p>Rakshit Garg · 2024EEB1239</p>
+      <p>Gurarpan Singh · 2024EEB1201</p>
+      <p>Raghav Gupta · 2024EEB1236</p>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">65%</div>
+        <div class="stat-label">Reported irregular or insufficient water supply</div>
+      </div>
+      <div>
+        <div class="stat-num">150+</div>
+        <div class="stat-label">Survey participants (students + residents)</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Major solutions: Fog, Rainwater, AI System</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ABSTRACT -->
+<section id="abstract">
+  <div class="container">
+    <div class="section-tag">01 — Abstract</div>
+    <div class="abstract-grid fade-in">
+      <div>
+        <h2 class="section-title">A Region-Specific Lens on Water Scarcity</h2>
+        <div class="abstract-text">
+          <p>Water scarcity is not a uniform problem — its causes and possible solutions vary across different regions. In some areas, limited rainfall leads to shortages, while in others, resources such as rainwater or atmospheric moisture remain underutilized.</p>
+          <p>This project focuses on identifying region-specific water challenges and exploring suitable solutions instead of relying on a single method. To understand real-world needs, a survey and informal discussions were conducted with local residents.</p>
+          <p>The findings revealed that a large number of people face irregular water supply and depend on seasonal sources. Awareness regarding alternative water harvesting methods is relatively low — highlighting a clear gap between available solutions and their practical implementation.</p>
+          <p>Based on these observations, the project proposes an AI-based system that analyzes regional factors and user inputs to recommend the most suitable water management techniques, such as fog water harvesting or rainwater harvesting.</p>
+        </div>
+        <div class="key-finding">
+          <p>"Water scarcity is not due to lack of resources alone, but due to the mismatch between regional conditions and the solutions applied."</p>
+          <small>— Key Research Finding</small>
+        </div>
+      </div>
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="big-num">65%</div>
+          <div class="stat-desc">People reported irregular or insufficient water supply</div>
+        </div>
+        <div class="stat-card">
+          <div class="big-num">150+</div>
+          <div class="stat-desc">Survey participants — students and local residents</div>
+        </div>
+        <div class="stat-card">
+          <div class="big-num">3</div>
+          <div class="stat-desc">Major solutions: Fog harvesting, Rainwater harvesting, AI recommendation system</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <div class="section-tag">02–03 — Problem Statement</div>
+    <h2 class="section-title fade-in">Understanding the<br>Water Crisis</h2>
+    <div class="problem-cols fade-in">
+      <div class="problem-block">
+        <h3>The Core Problem</h3>
+        <p>Water shortages are no longer limited to drought-prone zones. They are becoming prevalent in areas with high atmospheric moisture — like hilly regions and northern India where thick fog forms in winter. Principles like condensation, radiative cooling, and micro-droplet coalescence make it possible to collect water from fog and dew, yet environmental variations affect volume and purity.</p>
+        <br>
+        <p>There is a gap in developing systems that include real-time sensing and analysis. The inability to gather data on humidity, TDS, temperature, and air quality limits the ability to optimize these technologies and apply them broadly.</p>
+      </div>
+      <div class="problem-block">
+        <h3>Observations from Survey</h3>
+        <ul>
+          <li>Majority of respondents reported irregular water supply</li>
+          <li>High dependence on groundwater and seasonal sources</li>
+          <li>Limited awareness of alternative water harvesting methods</li>
+          <li>Lack of solutions tailored to local conditions</li>
+        </ul>
+        <br>
+        <h3>Gaps Identified</h3>
+        <p>The findings suggest the issue is not only water scarcity, but also the absence of region-specific solutions that match local requirements — calling for a more adaptive, flexible, and need-based approach.</p>
+        <br>
+        <h3>Contributing Factors (Survey)</h3>
+        <ul>
+          <li>Agricultural overuse — tube wells, paddy irrigation (31.1%)</li>
+          <li>Climate change and rainfall variability (29.5%)</li>
+          <li>Population growth and urban demand (27.9%)</li>
+          <li>Poor water management policies</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SURVEY -->
+<section id="survey">
+  <div class="container">
+    <div class="section-tag">04–06 — Research & Field Work</div>
+    <h2 class="section-title fade-in">What We Found on the Ground</h2>
+    <p class="survey-intro fade-in">A survey was conducted to understand how students perceive water scarcity, and field visits were made to farming areas to speak directly with farmers facing these challenges daily.</p>
+    <div class="survey-grid fade-in">
+      <div class="survey-card">
+        <h3>Student Awareness</h3>
+        <p>Most students are quite aware of water scarcity as a growing problem affecting both urban and rural areas. 41% rated groundwater depletion in Punjab as a "very serious (major crisis)" issue.</p>
+      </div>
+      <div class="survey-card">
+        <h3>Technology Optimism</h3>
+        <p>67.2% of students rated AI-based water monitoring as "highly" or "moderately" effective in reducing water wastage. Many proposed combining IoT sensors and data analytics with weather forecasting.</p>
+      </div>
+      <div class="survey-card">
+        <h3>Farmer Field Visit</h3>
+        <p>Team members visited local farming areas and spoke directly with farmers. They shared struggles with irregular water supply and heavy dependence on rainfall, which has become increasingly unpredictable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section id="technology">
+  <div class="container">
+    <div class="section-tag">08–10 — Current Developments</div>
+    <h2 class="section-title fade-in">Fog Harvesting Technology</h2>
+    <p class="tech-intro fade-in">In recent years, fog water harvesting has transitioned from rudimentary netting to highly engineered systems focused on maximizing collection efficiency, structural durability, and smart monitoring.</p>
+    <div class="tech-grid fade-in">
+      <div class="tech-card">
+        <div class="tech-card-num">01 — Biomimetic Design</div>
+        <h3>Janus Membranes</h3>
+        <p>Inspired by the Namib Desert beetle and cactus spines, advanced meshes feature microscopic hydrophilic tips and hydrophobic valleys — replacing old polyolefin nets that captured only a small fraction of atmospheric moisture.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card-num">02 — Structural Innovation</div>
+        <h3>3D Spacer Fabrics</h3>
+        <p>The CloudFisher technology uses a robust three-dimensional mesh grid within a rigid frame — preventing violent flapping that previously shook off captured water. These structures withstand wind speeds up to 120 km/h.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card-num">03 — Smart Integration</div>
+        <h3>IoT Monitoring</h3>
+        <p>Current deployments incorporate IoT sensors providing real-time data on wind speed, humidity, and water yields. Operators can calculate efficiency, predict water availability, and detect mesh damage immediately.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card-num">04 — AI Decision Making</div>
+        <h3>Rule-Based Intelligence</h3>
+        <p>Our system implements a rule-based decision engine that mimics AI behavior: if humidity and soil moisture are low → suggest irrigation; if rainfall is high and tank is not full → suggest water harvesting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SENSORS -->
+<section id="sensors">
+  <div class="container">
+    <div class="section-tag">18 — Implementation</div>
+    <h2 class="section-title fade-in">Sensor Architecture</h2>
+    <p class="sensors-intro fade-in">Our system uses Arduino as the central controller, continuously reading inputs from multiple sensors and converting them into meaningful environmental parameters.</p>
+    <div class="sensors-wrap fade-in">
+      <div class="sensor-pill">
+        <div class="sensor-icon">💧</div>
+        <div class="sensor-name">DHT11</div>
+        <div class="sensor-desc">Humidity sensing</div>
+      </div>
+      <div class="sensor-pill">
+        <div class="sensor-icon">🌱</div>
+        <div class="sensor-name">YL-69</div>
+        <div class="sensor-desc">Soil moisture content</div>
+      </div>
+      <div class="sensor-pill">
+        <div class="sensor-icon">🌧️</div>
+        <div class="sensor-name">FC-37</div>
+        <div class="sensor-desc">Rainfall detection</div>
+      </div>
+      <div class="sensor-pill">
+        <div class="sensor-icon">📏</div>
+        <div class="sensor-name">HC-SR04</div>
+        <div class="sensor-desc">Water level / tank</div>
+      </div>
+      <div class="sensor-pill">
+        <div class="sensor-icon">🌡️</div>
+        <div class="sensor-name">LM35</div>
+        <div class="sensor-desc">Ambient temperature</div>
+      </div>
+      <div class="sensor-pill">
+        <div class="sensor-icon">🔬</div>
+        <div class="sensor-name">Turbidity</div>
+        <div class="sensor-desc">Water quality / clarity</div>
+      </div>
+      <div class="sensor-pill">
+        <div class="sensor-icon">⚗️</div>
+        <div class="sensor-name">TDS Sensor</div>
+        <div class="sensor-desc">Total Dissolved Solids</div>
+      </div>
+      <div class="sensor-pill">
+        <div class="sensor-icon">🌊</div>
+        <div class="sensor-name">YF-S201</div>
+        <div class="sensor-desc">Water flow & usage</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GOALS -->
+<section id="goals">
+  <div class="container">
+    <div class="section-tag">15 — Goals & Objectives</div>
+    <h2 class="section-title fade-in">What We Set Out to Achieve</h2>
+    <div class="goals-list fade-in">
+      <div class="goal-item">
+        <div class="goal-num">01</div>
+        <div class="goal-text">
+          <h4>Efficient Atmospheric Water Harvesting</h4>
+          <p>Build a radiative cooling system that collects moisture from air through fog or dew condensation.</p>
+        </div>
+      </div>
+      <div class="goal-item">
+        <div class="goal-num">02</div>
+        <div class="goal-text">
+          <h4>Analyse Environmental Conditions</h4>
+          <p>Determine the effect of environmental variables — humidity, temperature, particulates — on the water collection process.</p>
+        </div>
+      </div>
+      <div class="goal-item">
+        <div class="goal-num">03</div>
+        <div class="goal-text">
+          <h4>Water Quality Analysis</h4>
+          <p>Analyse collected water using appropriate sensors such as TDS (Total Dissolved Solids) to ensure usability.</p>
+        </div>
+      </div>
+      <div class="goal-item">
+        <div class="goal-num">04</div>
+        <div class="goal-text">
+          <h4>Real-Time Data Analysis</h4>
+          <p>Continuously analyse data from various sensors to find best practices and optimize system performance.</p>
+        </div>
+      </div>
+      <div class="goal-item">
+        <div class="goal-num">05</div>
+        <div class="goal-text">
+          <h4>Develop a Working Prototype</h4>
+          <p>Build and test a functional prototype that demonstrates the feasibility of the integrated approach.</p>
+        </div>
+      </div>
+      <div class="goal-item">
+        <div class="goal-num">06</div>
+        <div class="goal-text">
+          <h4>AI/ML Predictive Analytics</h4>
+          <p>Use collected data to develop algorithms for predictive analytics using machine learning and AI models.</p>
+        </div>
+      </div>
+      <div class="goal-item">
+        <div class="goal-num">07</div>
+        <div class="goal-text">
+          <h4>Promote Sustainable Water Solutions</h4>
+          <p>Increase awareness of alternative means of acquiring water supply among local communities.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONSTRAINTS -->
+<section id="constraints">
+  <div class="container">
+    <div class="section-tag">20 — Constraints</div>
+    <h2 class="section-title fade-in">Challenges Faced</h2>
+    <div class="constraints-grid fade-in">
+      <div class="constraint-card">
+        <h3>Simulation Limitations</h3>
+        <p>Many advanced sensors (humidity, turbidity, groundwater) are not directly available in Tinkercad. We used potentiometers to simulate sensor inputs, which depend on manual adjustment rather than detecting real-world conditions.</p>
+      </div>
+      <div class="constraint-card">
+        <h3>AI Implementation Constraints</h3>
+        <p>Arduino and Tinkercad do not support full machine learning models. We implemented a rule-based decision engine — which demonstrates decision-making but cannot learn from data or adapt over time.</p>
+      </div>
+      <div class="constraint-card">
+        <h3>Circuit Design Issues</h3>
+        <p>Incorrect wiring, improper grounding, and wrong component placement caused initial malfunctions. Debugging required careful observation, re-checking connections, and multiple testing iterations.</p>
+      </div>
+      <div class="constraint-card">
+        <h3>Time Constraints</h3>
+        <p>Limited time prevented implementing advanced features such as real-time data collection, cloud integration, and advanced analytics and predictions — areas reserved for future development.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="container">
+    <div class="section-tag">21 — Student Contributions</div>
+    <h2 class="section-title fade-in">Group 2 — The Team</h2>
+    <div class="team-grid fade-in">
+      <div class="team-card">
+        <div class="team-avatar">AK</div>
+        <h4>Akshit Kumar</h4>
+        <div class="roll">2024EEB1178</div>
+        <div class="contribution">TDS Sensor simulation & student survey analysis</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">GJ</div>
+        <h4>Gaurish Juneja</h4>
+        <div class="roll">2024EEB1200</div>
+        <div class="contribution">Soil moisture sensor simulation & survey analysis</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">RC</div>
+        <h4>Rithwik Chander</h4>
+        <div class="roll">2024EEB1076</div>
+        <div class="contribution">Temperature sensing (LM35) & project design integration</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">RP</div>
+        <h4>Ritesh Pahari</h4>
+        <div class="roll">2024EEB1045</div>
+        <div class="contribution">Humidity sensing (DHT11) & sensor integration research</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">VM</div>
+        <h4>Vanya Mangla</h4>
+        <div class="roll">2024EEB1054</div>
+        <div class="contribution">Groundwater level sensor & project management</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">IS</div>
+        <h4>Ishwinder Singh</h4>
+        <div class="roll">2024EEB1208</div>
+        <div class="contribution">Rainfall detection & task coordination</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">AM</div>
+        <h4>Aditya Mathur</h4>
+        <div class="roll">2024EEB1024</div>
+        <div class="contribution">Problem formulation, HC-SR04 module & Tinkercad template</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">RG</div>
+        <h4>Rakshit Garg</h4>
+        <div class="roll">2024EEB1239</div>
+        <div class="contribution">Atmospheric pressure sensor & field visit</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">GS</div>
+        <h4>Gurarpan Singh</h4>
+        <div class="roll">2024EEB1201</div>
+        <div class="contribution">Turbidity sensor simulation & project coordination</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">RG</div>
+        <h4>Raghav Gupta</h4>
+        <div class="roll">2024EEB1236</div>
+        <div class="contribution">Water flow sensor & chatbot development</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section id="conclusion">
+  <div class="section-tag">15 — Conclusion</div>
+  <h2 class="section-title fade-in">Bridging the Gap Between<br>Potential and Practice</h2>
+  <div class="conclusion-line"></div>
+  <p class="fade-in">The survey and field interactions revealed that while there is a good level of awareness and innovative ideas among students, a gap remains between theoretical solutions and practical implementation. Bridging this gap requires collaboration between government bodies, researchers, engineers, and local communities — combined with cost-effective, region-specific solutions accessible across the country.</p>
+  <div class="course-badge">HS-202 · Human Geography & Social Needs · Group 2 · IIT Ropar</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Sustainable Water Management — Group 2 · 2024</p>
+  <p>HS-202 Human Geography and Social Needs</p>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.classList.add('visible');
+        observer.unobserve(el.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Stagger children of survey-grid, tech-grid, etc.
+  document.querySelectorAll('.survey-grid, .tech-grid, .sensors-wrap, .team-grid, .constraints-grid, .stat-cards').forEach(grid => {
+    [...grid.children].forEach((child, i) => {
+      child.style.transitionDelay = `${i * 0.08}s`;
+    });
+  });
+</script>
+
+</body>
+</html>
